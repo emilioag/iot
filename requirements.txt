@@ -1,0 +1,8 @@
+django
+paho-mqtt
+arrow
+numpy
+psycopg2
+ipdb
+jupyter
+django-extensions

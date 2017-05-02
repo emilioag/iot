@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.4.0/echarts.js"></script>
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <h1> Temperature </h1>
+    <a href="http://127.0.0.1:8000/temperature/?by=day">Day</a>
+    <a href="http://127.0.0.1:8000/temperature/?by=hour">Hour</a>
+    <a href="http://127.0.0.1:8000/temperature/?by=minute">Minute</a>
+    <a href="http://127.0.0.1:8000/temperature/?by=second">Second</a>
+    <div id="chart" style="height: 400px;"></div>
+    <script>
+    var chart = document.getElementById('chart');
+    var myChart = echarts.init(chart);
+    var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['Temperature']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                magicType: {
+                    type: ['line', 'bar']
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: JSON.parse("{{x|escapejs}}".replace(/\'/g, "\""))
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} °C'
+            }
+        },
+        series: [{
+            name: 'Serie A',
+            type: 'line',
+            data: JSON.parse("{{y}}")
+        }]
+    };
+    myChart.setOption(option);
+
+    </script>
+</body>
+</html>
